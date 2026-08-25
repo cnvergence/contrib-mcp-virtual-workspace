@@ -100,7 +100,7 @@ func (s *Scope) HasAccess(workspace string) bool {
 func (s *Scope) Clusters() []tools.ClusterInfo {
 	clusters := make([]tools.ClusterInfo, len(s.Workspaces))
 	for i, w := range s.Workspaces {
-		clusters[i] = tools.ClusterInfo{ClusterName: w.Name, Endpoint: w.Endpoint}
+		clusters[i] = tools.ClusterInfo{ClusterName: w.Name, Endpoint: w.Endpoint, Path: w.Path}
 	}
 	return clusters
 }

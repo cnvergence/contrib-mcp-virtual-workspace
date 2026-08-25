@@ -18,6 +18,7 @@ package core
 
 import (
 	"context"
+	"strings"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
@@ -28,6 +29,8 @@ import (
 type WorkspaceInfo struct {
 	ID       string `json:"id"`
 	Endpoint string `json:"endpoint"`
+	Name     string `json:"name,omitempty"`
+	Path     string `json:"path,omitempty"`
 }
 
 // ListWorkspacesInput is the input schema for list_kcp_workspaces (empty).
@@ -42,7 +45,7 @@ func registerListWorkspaces(server *mcp.Server, scope tools.Scope) {
 	mcp.AddTool(server, &mcp.Tool{
 		Annotations: tools.ReadOnly("List workspaces"),
 		Name:        "list_kcp_workspaces",
-		Description: "List kcp workspaces the authenticated user has access to. Returns workspace IDs and their API endpoints.",
+		Description: "List kcp workspaces the authenticated user has access to. Returns workspace IDs (logical cluster names), human-readable workspace paths, and API endpoints.",
 		InputSchema: map[string]any{
 			"type":       "object",
 			"properties": map[string]any{},
@@ -54,8 +57,17 @@ func registerListWorkspaces(server *mcp.Server, scope tools.Scope) {
 			workspaces[i] = WorkspaceInfo{
 				ID:       c.ClusterName,
 				Endpoint: c.Endpoint,
+				Name:     nameFromPath(c.Path),
+				Path:     c.Path,
 			}
 		}
 		return nil, ListWorkspacesOutput{Workspaces: workspaces}, nil
 	})
+}
+
+func nameFromPath(path string) string {
+	if i := strings.LastIndex(path, ":"); i >= 0 {
+		return path[i+1:]
+	}
+	return path
 }

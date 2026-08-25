@@ -45,6 +45,7 @@ var codecs = func() serializer.CodecFactory {
 type Workspace struct {
 	Name     string
 	Endpoint string
+	Path     string
 }
 
 // Options configures a Client.
@@ -170,6 +171,7 @@ func (c *Client) review(ctx context.Context, u user.Info) ([]Workspace, error) {
 		workspaces = append(workspaces, Workspace{
 			Name:     cluster.ClusterName,
 			Endpoint: cluster.Endpoint,
+			Path:     cluster.Path,
 		})
 	}
 
