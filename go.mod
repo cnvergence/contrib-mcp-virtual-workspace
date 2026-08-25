@@ -185,5 +185,3 @@ replace (
 	k8s.io/sample-controller => github.com/kcp-dev/kubernetes/staging/src/k8s.io/sample-controller v0.0.0-20260602065202-e006560fc76a
 	k8s.io/streaming => github.com/kcp-dev/kubernetes/staging/src/k8s.io/streaming v0.0.0-20260602065202-e006560fc76a
 )
-
-replace github.com/kcp-dev/contrib-access-virtual-workspace => ../contrib-access-virtual-workspace

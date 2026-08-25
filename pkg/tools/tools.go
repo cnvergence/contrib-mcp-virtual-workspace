@@ -45,7 +45,7 @@ type Scope interface {
 	// acting as the caller.
 	ClientFor(workspace string) (kubernetes.Interface, dynamic.Interface, error)
 
-	// Clusters returns the raw workspace access info (name, path, endpoint).
+	// Clusters returns the raw workspace access info (name + endpoint).
 	Clusters() []ClusterInfo
 }
 
@@ -53,7 +53,6 @@ type Scope interface {
 type ClusterInfo struct {
 	ClusterName string
 	Endpoint    string
-	Path        string
 }
 
 // ScopeError is returned when a tool targets a workspace outside the caller's
