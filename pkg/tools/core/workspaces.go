@@ -75,11 +75,6 @@ func registerListWorkspaces(server *mcp.Server, scope tools.Scope) {
 	})
 }
 
-// workspaceName resolves a display name by reading the workspace's
-// LogicalCluster with the caller's own permissions and taking the last
-// segment of its path annotation. The name is best-effort decoration: any
-// error -- including the caller not being allowed to read LogicalClusters --
-// leaves it empty rather than failing the listing.
 func workspaceName(ctx context.Context, scope tools.Scope, workspace string) string {
 	_, dyn, err := scope.ClientFor(workspace)
 	if err != nil || dyn == nil {
